@@ -1,11 +1,11 @@
+let parkingFullFlag;
+
 class AirportSecurity{
 
-    notify(flag) {       
-        let parkingFullFlag = flag;
-        
-        if (parkingFullFlag == true) {
-            console.log('notification to airport security :- parking lot is full.')
-        }
+    slotFull() {
+        parkingFullFlag = true;
+        console.log('notification to airport security :- parking lot is full.')
+        return parkingFullFlag;
     }
 
 }
