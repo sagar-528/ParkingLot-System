@@ -1,5 +1,5 @@
 var assert = require('assert');
-var ParkingLotSystem = require('../ParkingLotSystem');
+var ParkingLotSystem = require('../main/ParkingLotSystem');
 
 describe('describe Mocha Test for parking lot', function () {
     
@@ -18,19 +18,18 @@ describe('describe Mocha Test for parking lot', function () {
       assert.equal(answser, true);
     });
 
-    it('should return throw an exception when Unpark unknown vehicle.', function () {
+    it('should return exception when parking lot is full.', function () {
       try {
           let parkingLotSystem = new ParkingLotSystem();
           let car = new Object();
           let car1 = new Object();
+          let car2 = new Object();
           parkingLotSystem.park(car);
           parkingLotSystem.park(car1);
-          let ans = parkingLotSystem.unPark(new Object());
+          parkingLotSystem.park(car2);
       } catch (error) {
-          assert.equal(error.message, 'unknown vehicle unparked.');
+          assert.equal(error.message, 'lot is full.');
       }
-    });
-
-    
+  }); 
 
 }); 
