@@ -161,4 +161,13 @@ describe(`describe Mocha Test for parking lot`, () => {
       assert.equal(ans, true)
     });
 
+    it(`should return false when driver doesn't found the car. `, () => {
+      let car = [new Object(0), new Object(1), new Object(2)];
+      car.map(car => {
+          parkingLotSystem.park(car);
+      })
+      let findSlots = parkingLotSystem.findMyCar(car);
+      assert.equal(findSlots, false)
+    });
+
 }); 
