@@ -170,4 +170,13 @@ describe(`describe Mocha Test for parking lot`, () => {
       assert.equal(findSlots, false)
     });
 
+    //------------------uc8--------------------
+    it(`should return true when driver parked car then charges to be apply. `, () => {
+      let car = [new Object(0), new Date()];
+      let car1 = [new Object(1), new Date()];
+      parkingLotSystem.park(car)
+      let data = parkingLotSystem.park(car1)
+      assert.equal(data, true)
+    });
+
 }); 
