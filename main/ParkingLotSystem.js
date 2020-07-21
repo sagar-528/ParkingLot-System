@@ -41,7 +41,6 @@ class ParkingLotSystem {
                 console.log(this.parkingLots)
                 parkingLotOwner.slotEmpty();
                 return true;
-
             }
         }
         throw new Error('unknown vehicle unParked.');
