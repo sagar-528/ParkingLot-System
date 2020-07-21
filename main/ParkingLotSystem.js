@@ -6,7 +6,7 @@ const parkingLotMaxSize = 3
 class ParkingLotSystem {
 
     constructor() {
-        this.parkingLots = [];
+        this.parkingLots = new Array()
         parkingLotObserver = new ParkingLotObserver();
     }
     
@@ -19,6 +19,7 @@ class ParkingLotSystem {
             throw new Error('parking lot is full.');
         }  
        this.parkingLots.push(vehicle);
+       console.log("array", this.parkingLots)
         return true;
     }
 
@@ -45,6 +46,10 @@ class ParkingLotSystem {
             return true;
         }
         return false;
+    }
+
+    findEmptySlots() {
+        return true;
     }
 
 }
