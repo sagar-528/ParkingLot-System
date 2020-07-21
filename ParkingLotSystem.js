@@ -9,7 +9,7 @@ class ParkingLotSystem {
         if (this.parkVehicle == vehicle) {
             return true;
         }
-        return false;
+        throw new Error('unknown vehicle unparked.');
     }
     
 }
