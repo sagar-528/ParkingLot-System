@@ -1,7 +1,7 @@
 let ParkingLotObserver = require('./ParkingLotObserver');
 
 let parkingLotObserver;
-const parkingLotMaxSize = 3
+const parkingLotMaxSize = 4
 
 class ParkingLotSystem {
 
@@ -11,13 +11,22 @@ class ParkingLotSystem {
     }
     
     park(vehicle) {
-        if (vehicle == null || vehicle == undefined) {
+        if (vehicle == null) {
             throw new Error('unknown vehicle parked.');
         }
 
         if (this.isParkingLotFull()) {
             throw new Error('parking lot is full.');
         }  
+
+        for (let i = 0; i < this.parkingLots.length; i++) {
+            if (this.parkingLots[i] == undefined) {
+                this.parkingLots.fill(vehicle, i, i + 1)
+                console.log("arra",this.parkingLots)
+
+                return true;
+            }
+        }
         this.parkingLots.push(vehicle);
         return true;
     }
@@ -29,9 +38,10 @@ class ParkingLotSystem {
 
         for (let i = 0; i < this.parkingLots.length; i++) {
             if (this.parkingLots[i] == vehicle) {
-                this.parkingLots[i] = null;
+                this.parkingLots.splice(i, 1, undefined);
                 parkingLotObserver.subscribe();
                 parkingLotObserver.getNotifyToOwner();
+                console.log("after unpark", this.parkingLots);
                 return true;
             }
         }
@@ -49,7 +59,7 @@ class ParkingLotSystem {
 
     findEmptySlots() {
         for (let i = 0; i < this.parkingLots.length; i++) {
-            if (this.parkingLots[i] == null) {
+            if (this.parkingLots[i] == undefined) {
                 return i;
             }
         }
