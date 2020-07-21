@@ -23,7 +23,7 @@ describe('describe Mocha Test for parking lot', function () {
       let car = new Object();
       let answser = parkingLotSystem.park();
       assert.equal(answser, false);
-  });
+    });
 
   it('should return throw an exception when UnPark unknown vehicle.', function () {
     try {
@@ -36,7 +36,7 @@ describe('describe Mocha Test for parking lot', function () {
     } catch (error) {
         assert.equal(error.message, 'unknown vehicle unParked.');
     }
-});
+    });
 
   it('should return exception when parking lot is full.', function () {
       try {
@@ -50,6 +50,6 @@ describe('describe Mocha Test for parking lot', function () {
       } catch (error) {
           assert.equal(error.message, 'lot is full.');
       }
-  }); 
+    }); 
 
 }); 
