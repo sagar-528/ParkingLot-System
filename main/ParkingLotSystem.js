@@ -16,7 +16,7 @@ class ParkingLotSystem {
         }
 
         if (this.isParkingLotFull()) {
-            return false;
+            throw new Error('parking lot is full.');
         }  
        this.parkingLots.push(vehicle);
         return true;
@@ -24,7 +24,7 @@ class ParkingLotSystem {
 
     unPark(vehicle) {
         if (vehicle == null || vehicle == undefined) {
-        throw new Error('unknown vehicle unParked.');
+        throw new Error('null or undefined car unParked.');
         }
 
         for (let i = 0; i < this.parkingLots.length; i++) {
@@ -35,7 +35,7 @@ class ParkingLotSystem {
                 return true;
             }
         }
-        return false;
+        throw new Error('unknown vehicle unParked.');
     }
     
     isParkingLotFull() {
