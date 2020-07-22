@@ -17,7 +17,6 @@ describe(`describe Mocha Test for parking lot`, () => {
 
   it(`should return true when Unpark their car to go home.`, () => {
       let car = new Object();
-      let car1 = new Object();
       parkingLotSystem.park(car);
       let answser = parkingLotSystem.unPark(car);
       assert.equal(answser, true);
@@ -39,7 +38,7 @@ describe(`describe Mocha Test for parking lot`, () => {
       parkingLotSystem.park(car);
       parkingLotSystem.park(car1);
       parkingLotSystem.park(car2);
-      let ans = parkingLotSystem.unPark(car2)
+      let ans = parkingLotSystem.unPark(car1)
       assert.equal(ans, true);
     });
 
@@ -83,13 +82,13 @@ describe(`describe Mocha Test for parking lot`, () => {
       }
     }); 
 
-    it(`should return false when parking lot is full.`, () => {
+    it(`should return exception when parking lot is full.`, () => {
       try {
-        let car = [new Object(), new Object(), new Object(), new Object()];
+        let car = [new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()];
         
         car.map(car => {
             parkingLotSystem.park(car);
-        })
+        });
       } catch (error) {
           assert.equal(error.message, 'parking lot is full.');
       }
@@ -97,11 +96,11 @@ describe(`describe Mocha Test for parking lot`, () => {
 
   it(`should return false when parking lot is full and notify to parking lot owner.`, () => {
       try {
-        let car = [new Object(), new Object(), new Object(), new Object()];
+        let car = [new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()];
         
         car.map(car => {
             parkingLotSystem.park(car);
-        })
+        });
       } catch (error) {
           assert.equal(error.message, 'parking lot is full.');
       }
@@ -109,18 +108,18 @@ describe(`describe Mocha Test for parking lot`, () => {
 
   it(`should return exception when parking lot is full and notify to  airport security.`, () => {
       try {
-        let car = [new Object(), new Object(), new Object(), new Object()];
+        let car = [new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()];
             
         car.map(car => {
                 parkingLotSystem.park(car);
-            })   
+            });   
       } catch (error) {
           assert.equal(error.message, 'parking lot is full.');
       }
   });
 
   it(`should return exception when parking lot is full and again is available then notify to parking lot owner.`, () => {
-    let car = [new Object(), new Object(), new Object()];
+    let car = [new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object(), new Object()];
     car.map(car => {
         parkingLotSystem.park(car);
       })
@@ -130,18 +129,19 @@ describe(`describe Mocha Test for parking lot`, () => {
 
    // --------------uc6----------------
    it(`should return true when park the car at particular position.`, () => {
-      let car = [new Object(0), new Object(1), new Object(2)];
+      let car = [new Object(0), new Object(1), new Object(2), new Object(3), new Object(4), new Object(5), new Object(6), new Object(7), new Object(8)];
       
       car.map(car => {
         parkingLotSystem.park(car);
     })
-    parkingLotSystem.unPark(car[1]);
+    parkingLotSystem.unPark(car[2]);
     let emptySlots = parkingLotSystem.findEmptySlots();
-    assert.equal(emptySlots, 1)
+    assert.equal(emptySlots.lot, 2)
+    assert.equal(emptySlots.slot, 0)
     });
 
     it(`should return false when empty slot is not found.`, () => {
-      let car = [new Object(0), new Object(1), new Object(2)];
+      let car = [new Object(0), new Object(1), new Object(2), new Object(3), new Object(4), new Object(5), new Object(6), new Object(7), new Object(8)];
       
       car.map(car => {
           parkingLotSystem.park(car);
@@ -151,13 +151,13 @@ describe(`describe Mocha Test for parking lot`, () => {
     });
 
     it(`should return true when space is available then park.`, () => {
-      let car = [new Object(0), new Object(1), new Object(2)];
+      let car = [new Object(0), new Object(1), new Object(2), new Object(3), new Object(4), new Object(5), new Object(6), new Object(7), new Object(8)];
       car.map(car => {
           parkingLotSystem.park(car);
       })
-      parkingLotSystem.unPark(car[0]);
+      parkingLotSystem.unPark(car[5]);
       let emptySlots = parkingLotSystem.findEmptySlots();
-      let ans = parkingLotSystem.park(car[emptySlots]);
+      let ans = parkingLotSystem.park(car[emptySlots.lot]);
       assert.equal(ans, true)
     });
 
@@ -173,10 +173,8 @@ describe(`describe Mocha Test for parking lot`, () => {
     //------------------uc8--------------------
     it(`should return true when driver parked car then charges to be apply. `, () => {
       let car = [new Object(0), new Date()];
-      let car1 = [new Object(1), new Date()];
-      parkingLotSystem.park(car)
-      let data = parkingLotSystem.park(car1)
-      assert.equal(data, true)
+      let result = parkingLotSystem.park(car);
+      assert.equal(result, true)
     });
 
     it(`should return true when driver parked car then charges to be apply. `, () => {
@@ -189,4 +187,39 @@ describe(`describe Mocha Test for parking lot`, () => {
           assert.equal(e.message, 'unknown vehicle parked.')
       }
     });
+
+     // ------------------uc9--------------------
+     it(`should return true when car is park evenly distribution. `, () => {
+      let car = [[new Object(0), new Date()], [new Object(1), new Date()], [new Object(2), new Date()], [new Object(3), new Date()], [new Object(4), new Date()], [new Object(5), new Date()], [new Object(6), new Date()], [new Object(6), new Date()]];
+      let result = false;
+      car.map(car => {
+          result = parkingLotSystem.park(car);
+      })
+      assert.equal(result, true)
+      });
+
+  //-----------uc10----------------
+
+    it(`should return true when driver is handicap then his car parks in nearest free space. `, () => {
+      let ca1 = new Object('Handicap');
+      let car = [[new Object(0), new Date()], [new Object(1), new Date()], [new Object(2), new Date()], [new Object(3), new Date()]]
+      car.map(car => {
+          parkingLotSystem.park(car);
+      })
+      let result = parkingLotSystem.park(ca1);
+      assert.equal(result, true)
+    });
+
+    it(`should return true when more drivers are handicap then his car parks in nearest free space. `, () => {
+      let ca1 = new Object('Handicap');
+      let ca2 = new Object('Handicap');
+      let car = [[new Object(0), new Date()], [new Object(1), new Date()]]
+      car.map(car => {
+          parkingLotSystem.park(car);
+      })
+      parkingLotSystem.park(ca1);
+      let result = parkingLotSystem.park(ca2);
+      assert.equal(result, true)
+    });
+
 }); 
